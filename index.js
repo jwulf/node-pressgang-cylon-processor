@@ -4,6 +4,8 @@ var fs = require('fs');
 var PressGangCCMS = require('pressgang-rest').PressGangCCMS;
 
 exports.checkout = checkout;
+exports.getSpecMetadata = getSpecMetadata;
+exports.getSpec = getSpec;
 
 var ContentSpecMetadataSchema = [
     {attr : 'specrevision', rule : /^SPECREVISION[ ]*((=.*)|$)/i},
@@ -36,11 +38,10 @@ var ContentSpecMetadataSchema = [
 //  {attr: 'serverurl',     rule : injected}
 ]
 
-
 function getSpec(pg, id, cb)
 {
     var pressgang = new PressGangCCMS(pg); 
-	pressgang.isContentSpec(id, function (err, is){
+    pressgang.isContentSpec(id, function (err, is){
         if (err) {cb(err)} else
         {
             if (!is) {
@@ -49,23 +50,21 @@ function getSpec(pg, id, cb)
                 pressgang.getTopicData('xml', id, function(err, result)
                 {
                     cb(err, result);
-				}
+				});
 			}
 		}
-	}
+	});
 }
 
-function specMetadata(pg, id, cb)
+function getSpecMetadata(pg, id, cb)
 {
 	var pressgang = new PressGangCCMS(pg);
 	getSpec(pg, id, function(err, result){
-		stripMetadata(pressgang.url, result, function (err, md){
-			cb(err, md);
-		});
+		if (err) {cb(err, result)} else
+		{stripMetadata(pressgang.url, result, function (err, md){cb(err, md);});}
 	});
 }
  
-
 // cylonprocessor.checkout 
 // Checks out Content Specification to local file system
 // Returns metadata record for persistence to database
@@ -80,23 +79,15 @@ function specMetadata(pg, id, cb)
 
 function checkout(pg, id, dir, cb){
     var pressgang = new PressGangCCMS(pg); 
-    // Check that the topic is a content spec
-    getSpec(pg, id, function(err, result)
+    getSpecMetadata(pg, id, function(err, md)
     {
 		if (err) {cb(err)}
 		else 
 		{
-		    // We have the spec in result
-		    stripMetadata(pressgang.url, result, function(err, md){
-		        if (err) {cb(err);} else
-		        {
-		            checkoutSpec(md, dir, function(err){
-		                cb(err, md);});
-		        }
-        	});
-		}
+		 	checkoutSpec(md, dir, function(err){
+		    	cb(err, md);});
+	    }
     });
-
 }
 
 // Assemble a metadata record
