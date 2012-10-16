@@ -1,0 +1,24 @@
+{
+  "name": "pressgang-cylon",
+  "version": "0.0.0",
+  "description": "A JavaScript reimplementation of the PressGang Content Spec Processor, with more bling",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jwulf/node-pressgang-cylon-processor.git"
+  },
+  "keywords": [
+    "PressGang",
+    "CCMS",
+    ""
+  ],
+  "author": "Joshua Wulf",
+  "license": "BSD",
+  "dependencies": {
+    "pressgang-rest": "~0.0.3"
+  },
+  "devDependencies": {}
+}
