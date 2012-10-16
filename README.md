@@ -22,21 +22,42 @@ var url = 'http://pressgang.server.com:8080/TopicIndex';
 var id = 8432;
 var dir = '/opt/checkouts'
 
-cylon.checkout(url, id, dir, function(err, md){
-	if (err) {console.log(err)} else
-	{console.log('Successfully checked out %s to %s', md.title, md.bookdir);}
+cylon.checkout(url, id, dir, 
+	function(err, md){
+		if (err) { 
+			console.log(err) 
+		} else { 
+			console.log('Successfully checked out %s to %s',
+				md.title, md.bookdir);
+	}
 });
  ```
 The callback function receives a Content Specification metadata object with all the metadata from the Content Specification. This is useful if you want to generate an index of checked out books. 
 
-You can extract the metadata from a Content Specification using `specMetadata`:
+You can extract the metadata from a Content Specification using `getSpecMetadata`:
 
 ```js
-cylon.specMetadata(url, id, 
-	function(err, result){
-		if (err) 
-			{console.log('error');} 
-		else
-			{ console.log(md); }
+cylon.getSpecMetadata(url, id, 
+	function(err, md){
+		if (err) { 
+			console.log(err); 
+		} else { 
+			console.log(md); 
+		}
 	}
 ); 
+```
+
+You can get a Content Specification with `getSpec`:
+
+```js
+cylon.getSpec(url, id,
+	function(err, spec){
+		if (err) 
+			{ console.log(err); } 
+		else
+			{ console.log(spec); }
+	}
+); 
+```
+
