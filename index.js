@@ -6,6 +6,7 @@ var PressGangCCMS = require('pressgang-rest').PressGangCCMS;
 exports.checkout = checkout;
 exports.getSpecMetadata = getSpecMetadata;
 exports.getSpec = getSpec;
+exports.stripMetadata = stripMetadata;
 
 var ContentSpecMetadataSchema = [
     {attr : 'specrevision', rule : /^SPECREVISION[ ]*((=.*)|$)/i},
