@@ -35,9 +35,10 @@ var ContentSpecMetadataSchema = [
     {attr : 'space',        rule : /^spaces[ ]*((=.*)|$)/i},
     {attr : 'dtd',          rule : /^DTD[ ]*((=.*)|$)/i},
     {attr : 'id',           rule : /^ID[ ]*((=.*)|$)/i},
+    {attr : 'revhistory',   rule : /^#_DSD:REVHISTORY[ ]*((=.*)|$)/i}
 //  {attr: 'bookdir',       rule : injected}     
 //  {attr: 'serverurl',     rule : injected}
-]
+];
 
 function getSpec(pg, id, cb)
 {
@@ -79,15 +80,14 @@ function getSpecMetadata(pg, id, cb)
 // Returns: Content Spec metadata object
 
 function checkout(pg, id, dir, cb){
-    var pressgang = new PressGangCCMS(pg); 
     getSpecMetadata(pg, id, function(err, md)
     {
-		if (err) {cb(err)}
-		else 
-		{
-		 	checkoutSpec(md, dir, function(err){
-		    	cb(err, md);});
-	    }
+		if (err) {
+            cb(err);
+		} else {
+            checkoutSpec(md, dir, function(err){
+            cb(err, md);});
+        }
     });
 }
 

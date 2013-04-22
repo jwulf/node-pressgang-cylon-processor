@@ -1,6 +1,6 @@
 {
   "name": "pressgang-cylon",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A JavaScript reimplementation of the PressGang Content Spec Processor, with more bling",
   "main": "index.js",
   "scripts": {
@@ -18,7 +18,7 @@
   "author": "Joshua Wulf",
   "license": "BSD",
   "dependencies": {
-    "pressgang-rest": "~0.0.4"
+    "pressgang-rest": "~0.0.13"
   },
   "devDependencies": {}
 }
