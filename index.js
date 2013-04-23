@@ -49,7 +49,7 @@ function getSpec(pg, id, cb)
             if (!is) {
                 cb(new Error('Requested ID is not a Content Specification'));
             } else {
-                pressgang.getTopicData('xml', id, function(err, result)
+                pressgang.getTopic(pressgang.url, id, function(err, result)
                 {
                     cb(err, result);
 				});
@@ -62,8 +62,13 @@ function getSpecMetadata(pg, id, cb)
 {
 	var pressgang = new PressGangCCMS(pg);
 	getSpec(pg, id, function(err, result){
-		if (err) {cb(err, result)} else
-		{stripMetadata(pressgang.url, result, function (err, md){cb(err, md);});}
+		if (err) {
+            cb(err, result)
+        } else {
+            stripMetadata(pressgang.url, result, function (err, md){
+                cb(err, md);
+            });
+        }
 	});
 }
  
@@ -98,17 +103,21 @@ function checkout(pg, id, dir, cb){
 // https://github.com/lnewson/csprocessor/blob/master/csprocessor/src/main/java/com/redhat/contentspec/processor/ContentSpecParser.java
 
 // Arguments: 
-// spec : string containing spec to be mined
+// topic : topic containing spec to be mined
 // cb : callback function, signature: cb(err, md)
 
 // Returns:
 // md: Content Spec Metadata object
 
-function stripMetadata(url, spec, cb){
+function stripMetadata(url, topic, cb){
 
     // Content Spec Metadata object
-    var md = {'serverurl': url};   
-    var err;
+    var md = {'serverurl': url},   
+        err,
+        spec = topic.xml;
+        
+    md.specrevision = topic.revision;
+    md.spec = topic.xml;
     
     // Put the spec into a line-by-line array
     var array = spec.split("\n");

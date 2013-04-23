@@ -1,6 +1,6 @@
 {
   "name": "pressgang-cylon",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A JavaScript reimplementation of the PressGang Content Spec Processor, with more bling",
   "main": "index.js",
   "scripts": {
