@@ -1,5 +1,7 @@
 #node-pressgang-cylon-processor
 
+Update (April 2013): Don't use this now. The node-pressgang-rest (`npm install pressgang-rest`) does it all.
+
 A node module that provides a pure JavaScript re-implementation PressGang CCMS Content Spec Processor functionality. "Why?" I hear you ask. This reimplementation provides Content Spec Processor functionality as a library, so that you can hook all kinds of weird and wonderful things into the processing.
 
 ##Installation
